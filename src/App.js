@@ -3,7 +3,6 @@ import './App.css'
 import CartHeader from './CartHeader';
 import CartFooter from './CartFooter';
 import CartItems from './CartItems';
-import CartItem from './CartItem';
 import AddItem from './AddItem';
 
 class App extends Component{ 
@@ -24,28 +23,54 @@ class App extends Component{
             { id: 46, name: 'Intelligent Leather Clock', priceInCents: 2999 },
             { id: 47, name: 'Ergonomic Bronze Lamp', priceInCents: 40000 },
             { id: 48, name: 'Awesome Leather Shoes', priceInCents: 3990 },
-          ]};
+            ],
+            id: null,
+            name: '',
+            newProduct: {},
+            Quantity: null
+        };
 
-
-    selectChange = (e) => {
+    onSubmit = (e) => {
+        e.preventDefault()
         let newProduct = {
             id: this.state.id,
-            name: this.state.name,   
-            priceInCents: this.state.priceInCents,
-            quantity: this.state.quantity
+            product: this.state.newProduct,
+            quantity: this.state.Quantity
         }
-    
-        this.setState({cartItemsList:[this.state.cartItemsList.concat(newProduct)]})        
-        console.log(e.target.value)
-
+        this.setState({
+            cartItemsList: this.state.cartItemsList.concat(newProduct)
+        })
     }
 
+    selectedQuantity = (e) => {
+        this.setState({
+            Quantity: e.target.value
+        })
+    }
+    
+    selectChange = (e) => {
+            let selectedProduct = this.state.products.filter(product => {
+                return product.name === (e.target.value)
+            })   
+            this.setState({
+                newProduct: selectedProduct[0], 
+                id: this.state.cartItemsList.length+1
+            })
+    }    
+    
+    
     render() {
+
+        const total = this.state.cartItemsList.reduce((accumulator, currentValue) => {
+            return accumulator + currentValue.product.priceInCents
+        },0)
+        
         return (
             <div className="App">
                 <CartHeader />
                 <CartItems cartItems={this.state.cartItemsList}/>
-                <AddItem products={this.state.products} onChange={this.selectChange}/>
+                <h4>Total ${total/100}</h4>
+                <AddItem products={this.state.products} onChange={this.selectChange} onSubmit={this.onSubmit} newQuantity={this.selectedQuantity}/>
                 <CartFooter copyright="2016"/>
             </div>
 
