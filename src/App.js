@@ -27,7 +27,7 @@ class App extends Component{
             id: null,
             name: '',
             newProduct: {},
-            Quantity: null
+            quantity: null
         };
 
     onSubmit = (e) => {
@@ -35,7 +35,7 @@ class App extends Component{
         let newProduct = {
             id: this.state.id,
             product: this.state.newProduct,
-            quantity: this.state.Quantity
+            quantity: this.state.quantity
         }
         this.setState({
             cartItemsList: this.state.cartItemsList.concat(newProduct)
@@ -44,16 +44,14 @@ class App extends Component{
 
     selectedQuantity = (e) => {
         this.setState({
-            Quantity: e.target.value
+            quantity: e.target.value
         })
     }
     
     selectChange = (e) => {
-            let selectedProduct = this.state.products.filter(product => {
-                return product.name === (e.target.value)
-            })   
+            let selectedProduct = this.state.products.filter(product => product.name === (e.target.value))[0]   
             this.setState({
-                newProduct: selectedProduct[0], 
+                newProduct: selectedProduct, 
                 id: this.state.cartItemsList.length+1
             })
     }    
@@ -62,7 +60,7 @@ class App extends Component{
     render() {
 
         const total = this.state.cartItemsList.reduce((accumulator, currentValue) => {
-            return accumulator + currentValue.product.priceInCents
+            return accumulator + currentValue.product.priceInCents * currentValue.quantity
         },0)
         
         return (
@@ -71,7 +69,7 @@ class App extends Component{
                 <CartItems cartItems={this.state.cartItemsList}/>
                 <h4>Total ${total/100}</h4>
                 <AddItem products={this.state.products} onChange={this.selectChange} onSubmit={this.onSubmit} newQuantity={this.selectedQuantity}/>
-                <CartFooter copyright="2016"/>
+                <CartFooter copyright="2018"/>
             </div>
 
         );
