@@ -1,3 +1,3 @@
-Shopping Cart Application
+-Shopping Cart Application
 
-Created a shopping cart application using REACT.
+-Created a shopping cart application using REACT.
