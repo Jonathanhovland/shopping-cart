@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import './App.css'
-import CartHeader from './CartHeader';
-import CartFooter from './CartFooter';
-import CartItems from './CartItems';
-import AddItem from './AddItem';
+import CartHeader from './Components/CartHeader'
+import CartFooter from './Components/CartFooter'
+import CartItems from './Components/CartItems'
+import AddItem from './Components/AddItem'
 
 class App extends Component{ 
 
@@ -28,7 +28,7 @@ class App extends Component{
             name: '',
             newProduct: {},
             quantity: null
-        };
+        }
 
     onSubmit = (e) => {
         e.preventDefault()
@@ -64,16 +64,16 @@ class App extends Component{
         },0)
         
         return (
-            <div className="App">
+            <div className='App'>
                 <CartHeader />
                 <CartItems cartItems={this.state.cartItemsList}/>
                 <h4>Total ${total/100}</h4>
                 <AddItem products={this.state.products} onChange={this.selectChange} onSubmit={this.onSubmit} newQuantity={this.selectedQuantity}/>
-                <CartFooter copyright="2018"/>
+                <CartFooter copyright='2018'/>
             </div>
 
-        );
+        )
     }
 } 
 
-export default App;
+export default App
