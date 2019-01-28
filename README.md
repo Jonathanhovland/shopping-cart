@@ -1,3 +1,3 @@
 Shopping Cart Application
 
--Created a shopping cart application using React and Bootstrap.
+React / Bootstrap
