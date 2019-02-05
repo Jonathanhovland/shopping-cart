@@ -1,3 +1,3 @@
-#Shopping Cart Application
+Shopping Cart Application
 
 React / Bootstrap
